@@ -91,14 +91,15 @@ export default function Factory(props) {
         .send({ from: account });
 
       let dao = result["events"]["DAOdeployed"]["returnValues"]["kaliDAO"];
+      value.setLoading(!loading);
       Router.push({
         pathname: "/daos/[dao]",
         query: { dao: dao },
       });
     } catch (e) {
       alert(e);
+      value.setLoading(!loading);
     }
-    value.setLoading(!loading);
   }
 
   return (
