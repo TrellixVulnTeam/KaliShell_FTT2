@@ -89,9 +89,8 @@ export default function Factory(props) {
           gov
         )
         .send({ from: account });
-
-      let dao = result["events"]["DAOdeployed"]["returnValues"]["kaliDAO"];
       value.setLoading(false);
+      let dao = result["events"]["DAOdeployed"]["returnValues"]["kaliDAO"];
       Router.push({
         pathname: "/daos/[dao]",
         query: { dao: dao },
@@ -100,6 +99,7 @@ export default function Factory(props) {
       alert(e);
       value.setLoading(false);
     }
+    value.setLoading(false);
   }
 
   return (
