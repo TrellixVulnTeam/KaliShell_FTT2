@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 let web3m;
 
-if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
+if (typeof window !== "undefined") {
   const providerOptions = {
     walletconnect: {
       package: WalletConnectProvider, // required
