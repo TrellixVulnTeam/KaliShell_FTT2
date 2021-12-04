@@ -23,7 +23,7 @@ export default function Factory(props) {
 
   const createDAO = async(e) => {
     e.preventDefault();
-    value.setLoading(!loading);
+    value.setLoading(true);
 
     let object = e.target;
     var array = [];
@@ -91,14 +91,14 @@ export default function Factory(props) {
         .send({ from: account });
 
       let dao = result["events"]["DAOdeployed"]["returnValues"]["kaliDAO"];
-      value.setLoading(!loading);
+      value.setLoading(false);
       Router.push({
         pathname: "/daos/[dao]",
         query: { dao: dao },
       });
     } catch (e) {
       alert(e);
-      value.setLoading(!loading);
+      value.setLoading(false);
     }
   }
 
