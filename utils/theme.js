@@ -14,7 +14,7 @@ const theme = extendTheme({
   components: {
     Button: {
       defaultProps: {
-        colorScheme: "kali",
+        //colorScheme: "kali",
       },
       baseStyle: {
         display: "flex",

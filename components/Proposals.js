@@ -3,7 +3,6 @@ import Router, { useRouter } from "next/router";
 import AppContext from '../context/AppContext';
 import {
   chakra,
-  Button,
   HStack,
   Center,
   Text,
@@ -41,11 +40,6 @@ export default function Proposals() {
         await instance.methods.supermajority().call()
       );
 
-      const eventData = await instance.getPastEvents("NewProposal", {
-        fromBlock: 0,
-        toBlock: "latest",
-      });
-
       const cutoff = Date.now() / 1000 - parseInt(votingPeriod);
       for (var i = 0; i < proposalCount; i++) {
           var proposal = await instance.methods.proposals(i).call();
@@ -53,33 +47,17 @@ export default function Proposals() {
           if(parseInt(proposal["creationTime"]) != 0) {
             // add solidity contract id to array
             proposal["id"] = i;
-            // add human-readable proposal type
-            let proposalType = parseInt(proposal["proposalType"]);
-            proposal["type"] = proposalTypes[proposalType];
+            // format date for display
+            let created = new Date(parseInt(proposal["creationTime"]) * 1000);
+            proposal["created"] = created.toLocaleString();
+            //expiration
             let expires = new Date(
               (parseInt(proposal["creationTime"]) + parseInt(votingPeriod)) * 1000
             );
-            // integrate data from array getter function
-            let amount = proposalArrays["amount"][0];
-            proposal["amount"] = web3.utils.fromWei(amount, "ether");
-            proposal["account"] = proposalArrays["account"];
-            proposal["payload"] = proposalArrays["payload"];
-            // format date for display
-            let created = new Date(parseInt(proposal["creationTime"]) * 1000);
-            proposal["expires"] = expires.toLocaleString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            });
-            // get proposer
-            for (let j = 0; j < eventData.length; j++) {
-              if (eventData[j]["returnValues"]["proposal"] == i) {
-                proposal["proposer"] = eventData[j]["returnValues"]["proposer"];
-              }
-            }
-            // is voting open?
+            let timer = (expires / 1000) - (Date.now() / 1000);
+            proposal["timer"] = timer;
+            proposal["expires"] = expires.toLocaleString();
+            // * check if voting still open * //
             if (parseInt(proposal["creationTime"]) > cutoff) {
               proposal["open"] = true;
               // time remaining
@@ -87,7 +65,12 @@ export default function Proposals() {
             } else {
               proposal["open"] = false;
               proposal["timeRemaining"] = 0;
-            } // end open vs. closed
+            }
+            // integrate data from array getter function
+            let amount = proposalArrays["amount"][0];
+            proposal["amount"] = web3.utils.fromWei(amount, "ether");
+            proposal["account"] = proposalArrays["account"];
+            proposal["payload"] = proposalArrays["payload"];
             proposalArray.push(proposal);
           } // end live proposals
         } // end for loop

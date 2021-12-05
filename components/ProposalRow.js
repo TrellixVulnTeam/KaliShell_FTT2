@@ -39,7 +39,8 @@ export default function ProposalRow(props) {
             alignItems="left"
             //backgroundColor="kali.800"
             spacing={1}
-            width={{sm: '300px', md: '500px', lg: '600px'}}
+            maxW="500px"
+            //width={{sm: '300px', md: '500px', lg: '600px'}}
           >
             <Text fontSize="md">
               <b>{p["description"]}</b>
@@ -83,7 +84,8 @@ export default function ProposalRow(props) {
             <Text fontSize="sm">
               <i>
                 created: {p["created"]} <br />
-                by: {p["proposer"]}
+                expires: {p["expires"]}<br />
+                {p["timer"]>0 ? <>timer: {p["timer"]}</> : ''}
               </i>
             </Text>
           </VStack>
