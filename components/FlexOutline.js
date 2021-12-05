@@ -14,6 +14,7 @@ const FlexOutline = (props) => {
       boxShadow="xs"
       rounded="xl"
       mb={5}
+      //maxW="90vw"
     >
       {props.children}
     </Flex>

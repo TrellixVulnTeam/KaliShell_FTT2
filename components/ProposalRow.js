@@ -39,6 +39,7 @@ export default function ProposalRow(props) {
             alignItems="left"
             //backgroundColor="kali.800"
             spacing={1}
+            width={{sm: '300px', md: '500px', lg: '600px'}}
           >
             <Text fontSize="md">
               <b>{p["description"]}</b>
