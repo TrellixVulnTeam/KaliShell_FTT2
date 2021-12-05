@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import {
-  Button
+  Button,
+  Text
 } from "@chakra-ui/react";
 
 export default function Account() {
@@ -9,6 +10,7 @@ export default function Account() {
   const { account } = value.state;
   return(
     <Button
+      flexShrink={0}
       bgGradient="linear(to-br, kali.600, kali.700)"
       size="md"
       variant="ghost"
@@ -17,7 +19,7 @@ export default function Account() {
       border={0}
 
     >
-      {account == null ? "Connect Wallet" : account}
+      <Text isTruncated maxW="sm">{account == null ? "Connect Wallet" : account}</Text>
     </Button>
   )
 }

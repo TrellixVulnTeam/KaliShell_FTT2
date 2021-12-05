@@ -6,6 +6,7 @@ import {
 export default function Kali() {
   return(
     <Box
+      display={{ sm: "none", md: "block", lg: "block", xl: "block" }}
       as="h1"
       letterSpacing="wide"
       fontWeight="extrabold"

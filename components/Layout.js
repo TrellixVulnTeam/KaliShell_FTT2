@@ -23,7 +23,12 @@ export default function Layout(props) {
         />
       </Head>
       <Nav />
-      <Container>
+      <Container
+        minheight="100vh"
+        maxW="container.md"
+        alignItems="center"
+        justifyContent="center"
+      >
         {props.children}
       </Container>
       <Footer />

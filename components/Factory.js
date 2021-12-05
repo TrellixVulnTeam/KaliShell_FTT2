@@ -15,11 +15,16 @@ import {
   Select,
 } from "@chakra-ui/react";
 import FlexGradient from "./FlexGradient";
+const abi = require('../abi/KaliDAOfactory.json');
+const rinkeby = "0x6106375F8549fD1a688956F7070aa8bA3fdF51b2";
 
 export default function Factory(props) {
   const value = useContext(AppContext);
   const { web3, account, chainId, loading } = value.state;
-  const factory = props.instance;
+  const factory = new web3.eth.Contract(
+    abi,
+    rinkeby
+  );
 
   const createDAO = async(e) => {
     e.preventDefault();
